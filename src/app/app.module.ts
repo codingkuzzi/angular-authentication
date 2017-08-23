@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { AngularFireModule } from 'angularfire2'
-
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
-import { AuthService} from './providers/auth.service';
+import { AuthenticationService} from './providers/auth.service';
+import { PublicComponent } from './public/public.component';
+import { PrivateComponent } from './private/private.component';
+import { routing } from './app.routing';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBRMBGRVCUqsuDtXiWYi5ohMCr4eGF4Tzs",
@@ -19,15 +23,20 @@ export const firebaseConfig = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PublicComponent,
+    PrivateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    routing
   ],
-  providers: [ AuthService],
+  providers: [ AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
